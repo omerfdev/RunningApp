@@ -22,7 +22,7 @@ namespace RunningApp
             }
             Console.Clear();
             Array.Sort(turSuresi);
-            Console.WriteLine("Turlar Sıralınayor...");
+            Console.WriteLine("Turlar Sıralanıyor...");
             Thread.Sleep(3000);
             //foreach (TimeSpan items in turSuresi) {  Console.WriteLine("* "+items); } Farklı bir yöntem olarak kullanılabilir.
 
