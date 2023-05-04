@@ -5,30 +5,30 @@ namespace RunningApp
     {
         static void Main()
         {
-            int turSayisi = 5;
-            TimeSpan[] turSuresi = new TimeSpan[turSayisi];
-            for (int i = 0; i < turSayisi; i++)
+            int lapCount = 5;
+            TimeSpan[] lapTimeArray = new TimeSpan[lapCount];
+            for (int i = 0; i < lapCount; i++)
             {
                 Console.Clear();
                 DateTime firstTime = DateTime.Now;
-                Console.WriteLine("Alınan toplam mesafe= " + ToplamMesafe(AdımMesafesi(), AdimSayisi(), KosuSüresi()) + " metredir.");
+                Console.WriteLine("Alınan toplam mesafe= " + ToplamMesafe(StepDistance(), StepCountMinute(), WalkTime()) + " metredir.");
                 DateTime lastTime = DateTime.Now;
-                TimeSpan turZamani = lastTime - firstTime;
-                turSuresi[i] = turZamani;
-                Console.WriteLine(turZamani);
+                TimeSpan lapTime = lastTime - firstTime;
+                lapTimeArray[i] = lapTime;
+                Console.WriteLine(lapTime);
                 Console.WriteLine("Tur Zamanı Ekleniyor...");
                 Thread.Sleep(5000);
 
             }
             Console.Clear();
-            Array.Sort(turSuresi);
+            Array.Sort(lapTimeArray);
             Console.WriteLine("Turlar Sıralanıyor...");
             Thread.Sleep(3000);
-            //foreach (TimeSpan items in turSuresi) {  Console.WriteLine("* "+items); } Farklı bir yöntem olarak kullanılabilir.
+            //foreach (TimeSpan items in lapTimeArray) {  Console.WriteLine("* "+items); } Farklı bir yöntem olarak kullanılabilir.
 
-            for (int i = 0; i < turSuresi.Length; i++)
+            for (int i = 0; i < lapTimeArray.Length; i++)
             {
-                Console.WriteLine((i + 1) + ". en iyi tur: " + turSuresi[i]);
+                Console.WriteLine((i + 1) + ". en iyi tur: " + lapTimeArray[i]);
             }
             Console.ReadLine();
 
@@ -36,80 +36,80 @@ namespace RunningApp
         }
 
         /// <summary>
-        /// metod adım mesafesini ölçer ve metre cinsine çevirir.
+        /// Give a one step distance 
         /// </summary>
         /// <returns></returns>
-        private static double AdımMesafesi()
+        private static double StepDistance()
         {
             Console.WriteLine("Bir adımızı giriniz");
 
-            if (double.TryParse(Console.ReadLine(), out double adim))
+            if (double.TryParse(Console.ReadLine(), out double step))
             {
-                adim = adim / 100;
-                Console.WriteLine("Bir adımınız metredir= " + adim);
-                return adim;
+                step = step / 100;
+                Console.WriteLine("Bir adımınız metredir= " + step);
+                return step;
 
             }
-            else { Console.Clear(); Console.WriteLine("Yanlış veri girişi lütfen sayı giriniz"); return AdımMesafesi(); }
+            else { Console.Clear(); Console.WriteLine("Yanlış veri girişi lütfen sayı giriniz"); return StepDistance(); }
 
         }
         /// <summary>
-        /// Bu metod bir dakikada  kaç adet adım attığını bulur
+        /// Step Count Minute
         /// </summary>
         /// <returns></returns>
-        private static double AdimSayisi()
+        private static double StepCountMinute()
         {
             Console.WriteLine("Bir dakikada kaç adım atıyorsunuz");
 
-            if (double.TryParse(Console.ReadLine(), out double adimSayisi))
+            if (double.TryParse(Console.ReadLine(), out double stepCount))
             {
-                Console.WriteLine("Bir dakikada attığınız adım sayısı= " + adimSayisi);
+                Console.WriteLine("Bir dakikada attığınız adım sayısı= " + stepCount);
 
-                return adimSayisi;
+                return stepCount;
             }
-            else { Console.Clear(); Console.WriteLine("Yanlış veri girişi lütfen sayı giriniz"); return AdimSayisi(); }
+            else { Console.Clear(); Console.WriteLine("Yanlış veri girişi lütfen sayı giriniz"); return StepCountMinute(); }
 
         }
         /// <summary>
-        /// Kosu süresini saat ve dakika olarak ister ve daha sonra saati 60 ile çarpıp dakika olarak geri gönderir.
+        /// (minute)Walk Time Method 
         /// </summary>
         /// <returns></returns>
 
-        static double KosuSüresi()
+        static double WalkTime()
         {
            
             Console.WriteLine("Koşu sürenizin saatlik kısmını giriniz");
-            if (double.TryParse(Console.ReadLine(), out double kosuSuresiSaat))
+            if (double.TryParse(Console.ReadLine(), out double walkTimeHour))
             {
-                kosuSuresiSaat = kosuSuresiSaat * 60;
+                walkTimeHour = walkTimeHour * 60;
 
             }
-            else { Console.Clear(); Console.WriteLine("Yanlış veri girişi lütfen sayı giriniz"); return KosuSüresi(); }            
+            else { Console.Clear(); Console.WriteLine("Yanlış veri girişi lütfen sayı giriniz"); return WalkTime(); }            
             Console.WriteLine("Koşu sürenizin dakikalık kısmını giriniz");
             if (double.TryParse(Console.ReadLine(), out double kosuSuresiDakika))
             {
-                double sure = kosuSuresiSaat + kosuSuresiDakika;
-                Console.WriteLine("Toplam koşu süresi: " + sure);
-                return sure;
+                double time = walkTimeHour + kosuSuresiDakika;
+                Console.WriteLine("Toplam koşu süresi: " + time);
+                return time;
             }
-            else { Console.Clear(); Console.WriteLine("Yanlış veri girişi lütfen sayı giriniz"); return KosuSüresi(); }
+            else { Console.Clear(); Console.WriteLine("Yanlış veri girişi lütfen sayı giriniz"); return WalkTime(); }
         
                     
            
            
         }
         /// <summary>
-        /// Bu metod parametrelerini aldıktan sonra toplam mesafeyi ölçer.
+        /// the total path taken Method
         /// </summary>
-        /// <param name="adim"></param>
-        /// <param name="adimSayisi"></param>
-        /// <param name="kosuSuresi"></param>
+        /// <param name="step"></param>
+        /// <param name="stepCount"></param>
+        /// <param name="time"></param>
         /// <returns></returns>
-        static double ToplamMesafe(double adim, double adimSayisi, double sure)
+        static double ToplamMesafe(double step, double stepCount, double time)
         {
-            Console.WriteLine("Adım uzunluğu metre cinsinden: "+adim);
-            Console.WriteLine("Toplam koşu süresince atılan adım: "+adimSayisi*sure);
-            double toplamMesafe = sure * adim * adimSayisi;
+            Console.WriteLine("Adım uzunluğu metre cinsinden: "+step);
+            Console.WriteLine("Toplam koşu süresince atılan adım: "+stepCount*time);
+            double toplamMesafe = time * step * stepCount;
             return toplamMesafe;
         }
     }
